@@ -17,6 +17,7 @@
 }
 header{
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 1rem 1.5rem;
     background-color: gainsboro;
@@ -38,13 +39,12 @@ header{
     background: gray;
 }
 .MenuBar{
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
     background-color: rgb(148, 51, 51);
 }
 .MenuBar ul{
     display: flex;
+    /* justify-content: center; */
+    align-items: center;
     margin: 0;
     padding: 0;
 }
@@ -52,6 +52,32 @@ header{
     display: block;
     text-decoration: none;
     color: #fff;
-    margin: 1rem 1.5rem;
+    padding: 1rem 1.5rem;
     font-size: 1.5rem;
+}
+.active{
+    /* padding: 1rem 1.5rem; */
+    background: rgb(113, 128, 0);
+}
+.popup{
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(154, 154, 154, 0.685);
+    z-index: 11;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    margin-top: 15px;
+}
+tr th{
+    border: 1px solid gray;
+}
+tr td{
+    border: 1px solid gray;
 }

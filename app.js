@@ -1,8 +1,10 @@
-$(document).ready(function () {
-    const btn_add = $('.btn-add');
-    btn_add.click(function () {
-        console.log('Love Sokrong')
+$(document).ready(function(){
+    // console.log("Love Sokrong");
+    const body = $('body'); 
+    const popup =`<div class="popup"></div>`;
+    const btnAdd = $('.btn-add');
+    btnAdd.click(function(){
+        // console.log("Love Sokrong")
+        body.append(popup)
     })
-    //button add
-
 })

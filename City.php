@@ -17,13 +17,13 @@
                 <div class="MenuBar">
                     <ul>
                         <li><a href="home.php">Home</a></li>
-                        <li><a href="#" class="active">Prey Veng</a></li>
+                        <li><a href="#">Prey Veng</a></li>
                         <li><a href="City.php" class="active">PP</a></li>
                     </ul>
                 </div>
             </header>
         </div>
-    <!-- <table>
+    <table>
         <thead>
             <tr>
                 <th>
@@ -60,7 +60,7 @@
                 <td>1</td>
             </tr>
         </tbody>
-    </table> -->
+    </table>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
