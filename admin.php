@@ -12,8 +12,8 @@
     
         <div class="container">
             <header>
-                <div class="city">
-                    City
+                <div class="btn-add">
+                    + Add
                 </div>
                 <div class="MenuBar">
                     <ul>
