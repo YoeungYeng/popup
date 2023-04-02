@@ -28,7 +28,7 @@
                 </div>
             </header>
         </div>
-    <table>
+    <table id="tbl_data">
         <thead>
             <tr>
                 <th>
@@ -55,15 +55,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Preyveng</td>
-                <td>1.jpg</td>
-                <td>Love</td>
-                <td>1</td>
-                <td>kh</td>
-                <td>1</td>
-            </tr>
+            <?php
+                $sql ="SELECT *FROM tbl_city ORDER BY ID DESC";
+                $rs = $cn->query($sql);
+                //check condition
+                if($rs -> num_rows > 0){
+                    while( $row =$rs->fetch_array()){
+                        ?>
+                            <tr>
+                                <td><?php echo $row[0] ?> </td>
+                                <td><?php echo $row[1] ?> </td>
+                                <td><?php echo $row[2] ?> </td>
+                                <td><?php echo $row[3] ?> </td>
+                                <td><?php echo $row[4] ?> </td>
+                                <td><?php echo $row[5] ?> </td>
+                                <td><?php echo $row[6] ?> </td>
+                            </tr>
+
+                        <?php
+                    }
+                }
+            ?>
+            
         </tbody>
     </table>
 </body>

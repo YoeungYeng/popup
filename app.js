@@ -2,6 +2,7 @@ $(document).ready(function () {
     // console.log("Love Sokrong");
     const body = $('body');
     const popup = `<div class="popup"></div>`;
+    var tbData = $("#tbl_data");
     const btnAdd = $('.btn-add');
     const btnClose = $('.btn-close');
     const btnSave = $('.btn-save');
@@ -35,6 +36,7 @@ $(document).ready(function () {
                     <label for="">Photo</label>
                     <div class="img-btn">
                         <input type="file" name="txt-img" id="txt-img">
+                        <input type="hidden" name="txt-photo" id="txt-photo">
                     </div>
                 </div>
 
@@ -62,6 +64,7 @@ $(document).ready(function () {
         body.append(popup);
         body.find('.popup').append(frm);
         const txtId = body.find(".frm #txt-id");
+        const txtod = body.find(".frm #txt-od");
         $.ajax({
             url: 'Action/get-autoId.php',
             type: 'POST',
@@ -73,8 +76,8 @@ $(document).ready(function () {
             },
             success: function (data) {
                 //work after success   
-                txtId.val(data.id)
-
+                txtId.val(parseInt(data.id) + 1)
+                txtod.val(parseInt(data.id) + 1);
             }
         });
     });
@@ -85,7 +88,23 @@ $(document).ready(function () {
     })
     //button save
     body.on('click', '.frm .btn-save', function () {
-        console.log("Love Sokrong")
+        // console.log("Love Sokrong")
+        const txtId = body.find(".frm #txt-id");
+        const txtod = body.find(".frm #txt-od");
+        const txtname = body.find(".frm #txt-name");
+        const txtPhoto = body.find(".frm #txt-photo");
+        const txtStatus = body.find(".frm #txt-status");
+        const txtdes = body.find(".frm #txt-des");
+        const txtlang = body.find(".frm #txt-language");
+        if (txtname.val() == '') {
+            alert("Input your name");
+            txtname.focus();
+            return;
+        } else if (txtdes.val() == '') {
+            alert("Input your description")
+            txtdes.focus();
+            return;
+        }
         var eThis = $(this);
         var frm = eThis.closest('form.upl');
         var frm_data = new FormData(frm[0]);
@@ -96,13 +115,28 @@ $(document).ready(function () {
             contentType: false,
             cache: false,
             processData: false,
-            dataType: "json",
+            // dataType: "json",
             beforeSend: function () {
                 //work before success    
             },
             success: function (data) {
-                //work after success     
-                   
+                //work after success
+                // alert("Love Sokrong")
+                var tr =`
+                    <tr>
+                        <td>${txtId.val()}</td>
+                        <td>${txtname.val()}</td>
+                        <td>${txtPhoto.val()}</td>
+                        <td>${txtdes.val()}</td>
+                        <td>${txtod.val()}</td>
+                        <td>${txtlang.val()}</td>
+                        <td>${txtStatus.val()}</td>
+                    </tr>
+                
+                `;
+                // alert("Love Sokrong")
+                tbData.find('tbody').prepend(tr);     
+
             }
         });
     })
