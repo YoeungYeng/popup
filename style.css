@@ -75,6 +75,22 @@ header{
     background: rgba(154, 154, 154, 0.685);
     z-index: 11;
 }
+/* loading */
+.loading{
+    width: 350px;
+    height: 350px;
+    background: url('Img/loading.gif') no-repeat center;
+    background-size: 80px 80px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.loading img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 /* Form Control */
 .frm{
     position: absolute;
@@ -212,7 +228,7 @@ textarea{
     height: 80px;
     border: 1px solid gray;
     background: url("Img/Img.png") no-repeat center;
-    background-size: 50px;
+    background-size: 80px 80px;
     /* background-position: center;
     background-repeat: no-repeat; */
 }
@@ -239,4 +255,9 @@ tr th{
 }
 tr td{
     border: 1px solid gray;
+}
+tr td > img{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }

@@ -2,6 +2,8 @@ $(document).ready(function () {
     // console.log("Love Sokrong");
     const body = $('body');
     const popup = `<div class="popup"></div>`;
+    // loading
+    const Loading = `<div class="popup"> <div class="loading"></div> </div>`;
     var tbData = $("#tbl_data");
     const btnAdd = $('.btn-add');
     const btnClose = $('.btn-close');
@@ -26,7 +28,7 @@ $(document).ready(function () {
                         <option value="2">En</option>
                     </select>
                     <label for="">Orders</label>
-                    <input type="text" name="txt-od" id="txt-od">
+                    <input type="text" name="txt-od" id="txt-od" readonly>
 
                     <label for="">Status</label>
                     <select name="txt-status" id="txt-status">
@@ -35,7 +37,7 @@ $(document).ready(function () {
                     </select>
                     <label for="">Photo</label>
                     <div class="img-btn">
-                        <input type="file" name="txt-img" id="txt-img">
+                        <input type="file" name="txt-file" id="txt-file">
                         <input type="hidden" name="txt-photo" id="txt-photo">
                     </div>
                 </div>
@@ -92,10 +94,12 @@ $(document).ready(function () {
         const txtId = body.find(".frm #txt-id");
         const txtod = body.find(".frm #txt-od");
         const txtname = body.find(".frm #txt-name");
-        const txtPhoto = body.find(".frm #txt-photo");
         const txtStatus = body.find(".frm #txt-status");
         const txtdes = body.find(".frm #txt-des");
         const txtlang = body.find(".frm #txt-language");
+        const txtFile = body.find(".frm #txt-file");
+        const txtPhoto = body.find(".frm #txt-photo");
+        const imgBox = body.find('.frm .img-btn');
         if (txtname.val() == '') {
             alert("Input your name");
             txtname.focus();
@@ -109,36 +113,79 @@ $(document).ready(function () {
         var frm = eThis.closest('form.upl');
         var frm_data = new FormData(frm[0]);
         $.ajax({
-            url: 'action/btn-save.php',
+            url: 'Action/btn-save.php',
             type: 'POST',
             data: frm_data,
             contentType: false,
             cache: false,
             processData: false,
-            // dataType: "json",
+            dataType: "json",
             beforeSend: function () {
-                //work before success    
+                //work before success  
+                body.append(Loading)
             },
             success: function (data) {
                 //work after success
                 // alert("Love Sokrong")
-                var tr =`
+                var tr = `
                     <tr>
                         <td>${txtId.val()}</td>
                         <td>${txtname.val()}</td>
-                        <td>${txtPhoto.val()}</td>
+                        <td><img src="Img/${txtPhoto.val()}" alt=""</td>
                         <td>${txtdes.val()}</td>
                         <td>${txtod.val()}</td>
                         <td>${txtlang.val()}</td>
                         <td>${txtStatus.val()}</td>
                     </tr>
+                    
                 
                 `;
+                // <img src="" alt=""></img>
                 // alert("Love Sokrong")
-                tbData.find('tbody').prepend(tr);     
+                tbData.find('tbody').prepend(tr);
+                body.find('.popup').last().remove();
+                txtname.val("")
+                txtdes.val("")
 
+                txtname.focus();
+                // 
+                txtId.val(data.last_id + 1)
+                txtod.val(data.last_id + 1)
+                //change background
+                imgBox.css({"background-image" :`url(Img/Img.png)`});
+                imgBox.val("")
+                txtFile.val("")
             }
         });
     })
-
+    //Upload Image
+    body.on('change', '#txt-file', function () {
+        // alert("love Sorkrong")
+        var eThis = $(this);
+        var Imgbox = eThis.parents('.frm').find('.img-btn');
+        var Photo = eThis.parents('.frm').find('#txt-photo')
+        var frm = eThis.closest('form.upl');
+        var frm_data = new FormData(frm[0]);
+        $.ajax({
+            url: 'Action/upl-imge.php',
+            type: 'POST',
+            data: frm_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            dataType: "json",
+            beforeSend:function() {
+                //work before success 
+                // alert("Love Sokrong")
+                body.append(Loading);   
+            },
+            success:function(data) {
+                console.log("Love Sokrong")
+                //work after success        
+                Imgbox.css({"background-image" : `url(Img/${data['img-box']})`});
+                body.find('.popup').last().remove();
+                Photo.val(data['img-box'])
+            }
+        });
+    })
 })
